@@ -7,6 +7,15 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+keras = "^3.8.0"
+scikit-learn = "^1.6.1"
+opencv-python = "^4.10.0.84"
+pillow = "^11.1.0"
+geopandas = "^1.0.1"
+rasterio = "^1.4.3"
+shapely = "^2.0.6"
+matplotlib = "^3.10.0"
+loguru = "^0.7.3"
 
 
 [build-system]
