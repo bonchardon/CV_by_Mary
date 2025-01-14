@@ -22,8 +22,8 @@ from rasterio.features import rasterize
 from shapely.geometry import mapping, Point, Polygon
 from shapely.ops import cascaded_union
 
-from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Activation, Dropout, Flatten, Dense
+from keras import Sequential
+from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, Activation, Dropout, Flatten, Dense
 
 from sklearn.model_selection import train_test_split
 
@@ -35,10 +35,17 @@ from core.consts import GEO_DATASET, IMAGE_PATH
 class ImageIdentification:
 
     async def dataset_prep(self):
-        """ Prepares dataset by reading GeoJSON and creating masks. """
-        df: DataFrame = gpd.read_file(GEO_DATASET)
-        logger.info(df)
-        return df.head()
+        """
+        Prepares dataset by reading GeoJSON and creating masks.
+        Here we use rasterio python library to read the file.
+        """
+        with rasterio.open(IMAGE_PATH, 'r', driver='JP2OpenJPEG') as img:
+            raster_img = reshape_as_image(img.read())
+            raster_meta = img.meta()
+            logger.info(raster_meta)
+
+            plt.figure(figsize=(15,15))
+            plt.imshow(raster_img)
 
     def create_mask(self, image, polygons):
         """ Create a binary mask from polygons on the image """
@@ -49,7 +56,11 @@ class ImageIdentification:
         return mask
 
     async def build_cnn(self, input_shape=(224, 224, 3)):
-        """ Build and compile the CNN model for image classification. """
+        """
+        For objects detection on pictures, we apply CNN deep learning algorithm,
+        since it is one of the best to use for image (!) analysis.
+
+        """
         model = Sequential()
 
         # First convolutional layer
@@ -81,7 +92,8 @@ class ImageIdentification:
         """ Main method to load images, create masks, and train the model. """
         # Step 1: Preprocess dataset
         df = await self.dataset_prep()  # Load GeoJSON data
-        image_path = IMAGE_PATH # Replace with actual path to satellite image
+        logger.info(df)
+        image_path = IMAGE_PATH
 
         # Step 2: Load and process the satellite image
         with rasterio.open(image_path) as src:

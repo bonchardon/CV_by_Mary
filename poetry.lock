@@ -1184,6 +1184,21 @@ s3 = ["boto3 (>=1.2.4)"]
 test = ["boto3 (>=1.2.4)", "fsspec", "hypothesis", "packaging", "pytest (>=2.8.2)", "pytest-cov (>=2.2.0)", "shapely"]
 
 [[package]]
+name = "redis"
+version = "5.2.1"
+description = "Python client for Redis database and key-value store"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "redis-5.2.1-py3-none-any.whl", hash = "sha256:ee7e1056b9aea0f04c6c2ed59452947f34c4940ee025f5dd83e6a6418b6989e4"},
+    {file = "redis-5.2.1.tar.gz", hash = "sha256:16f2e22dff21d5125e8481515e386711a34cbec50f0e44413dd7d9c060a54e0f"},
+]
+
+[package.extras]
+hiredis = ["hiredis (>=3.0.0)"]
+ocsp = ["cryptography (>=36.0.1)", "pyopenssl (==23.2.1)", "requests (>=2.31.0)"]
+
+[[package]]
 name = "rich"
 version = "13.9.4"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
@@ -1200,6 +1215,20 @@ pygments = ">=2.13.0,<3.0.0"
 
 [package.extras]
 jupyter = ["ipywidgets (>=7.5.1,<9)"]
+
+[[package]]
+name = "rob"
+version = "0.3.0"
+description = "Make python objects persistent with Redis."
+optional = false
+python-versions = "*"
+files = [
+    {file = "rob-0.3.0-py3-none-any.whl", hash = "sha256:f2c62617b6ef9dd557bd0a3b6813a5e3f7cece643766e5199363a9618e94093f"},
+    {file = "rob-0.3.0.tar.gz", hash = "sha256:c298083b1713ec39e6b549eb7d261c01751bf880f5f3dfb219daf34391244aae"},
+]
+
+[package.dependencies]
+redis = "*"
 
 [[package]]
 name = "scikit-learn"
@@ -1431,4 +1460,4 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "96a3ce680f0ea424344c7d1eac255d518563a188238277fa805edbc28616c617"
+content-hash = "3fe9839587a54cf4c9656068b36fd1d9000f2714bbc078f21f64587da8ce813a"
